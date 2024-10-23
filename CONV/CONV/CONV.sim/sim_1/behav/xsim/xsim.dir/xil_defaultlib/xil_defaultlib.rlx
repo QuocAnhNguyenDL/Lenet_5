@@ -1,0 +1,17 @@
+0.7
+2020.2
+May 22 2024
+19:03:11
+D:/DOAN/CONV/CONV/CONV.sim/sim_1/behav/xsim/glbl.v,1708598507,verilog,,,,glbl,,uvm,,,,,,
+D:/DOAN/CONV/CONV/CONV.srcs/sim_1/new/tb.sv,1728056470,systemVerilog,,,,tb,,uvm,,,,,,
+D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv,1728071268,systemVerilog,,D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/control.sv,,Lenet5,,uvm,,,,,,
+D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/control.sv,1727942980,systemVerilog,,D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/conv55.sv,,control,,uvm,,,,,,
+D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/conv55.sv,1728064361,systemVerilog,,D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/conv556.sv,,conv55,,uvm,,,,,,
+D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/conv556.sv,1728064497,systemVerilog,,D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/maxpoll22.sv,,conv556,,uvm,,,,,,
+D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/maxpoll22.sv,1727868678,systemVerilog,,D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/param.sv,,maxpoll22,,uvm,,,,,,
+D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/param.sv,1728057086,systemVerilog,,D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/read_img.sv,,params,,uvm,,,,,,
+D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/read_img.sv,1727834116,systemVerilog,,D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/row4buf.sv,,image_reader,,uvm,,,,,,
+D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/row4buf.sv,1727669407,systemVerilog,,D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/rowbuf.sv,,row4buf,,uvm,,,,,,
+D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/rowbuf.sv,1727940360,systemVerilog,,D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/top_lenet5.sv,,rowbuf,,uvm,,,,,,
+D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/top_lenet5.sv,1728056677,systemVerilog,,D:/DOAN/CONV/CONV/CONV.srcs/sim_1/new/tb.sv,,top_lenet5,,uvm,,,,,,
+D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/write_data.sv,1727887707,systemVerilog,,D:/DOAN/CONV/CONV/CONV.srcs/sim_1/new/tb.sv,,write_data,,uvm,,,,,,
