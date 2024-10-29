@@ -6,20 +6,28 @@ module Lenet5 #(parameter BIT_WIDTH = 8) (
     );
     
     parameter C1_PARAMS_file = "D:/DOAN/CONV/src/kernel_c1.list";
-    parameter C3_PARAMS_file = "D:/DOAN/CONV/src/kernel_c3_x6.list";
+    parameter C3_PARAMS_file = "D:/DOAN/CONV/src/kernel_c3.list";
+    parameter C5_PARAMS_file = "D:/DOAN/CONV/src/kernel_c5.list";
+    
     
     parameter IMG_SIZE = 32;
     parameter KERNEL_SIZE = 5;
     parameter MAXPOLL_SIZE = 2;
     parameter S2_SIZE = 28;
     parameter C3_SIZE = 14;
+    parameter S4_SIZE = 10;
+    parameter C5_SIZE = 5;
     
     parameter C1_FILTER_num = 6;
     parameter S2_FILTER_num = 6;
     parameter C3_FILTER_num = 16;
+    parameter S4_FILTER_num = 16;
+    parameter C5_FILTER_num = 120;
     
     parameter C1_PARAMS_num = 26;
     parameter C3_PARAMS_num = 25;
+    parameter C5_PARAMS_num = 401;
+    parameter PARAMS_NUM = 26;
     //parameter S2_SIZE = 32;
     //parameter C3_SIZE = 32;
     //parameter S4_SIZE = 32;
@@ -27,18 +35,44 @@ module Lenet5 #(parameter BIT_WIDTH = 8) (
     parameter C1_OUT_WIDTH = 16;
     parameter S2_OUT_WIDTH = 16;
     parameter C3_OUT_WIDTH = 24;
+    parameter S4_OUT_WIDTH = 24;
+    parameter C5_OUT_WIDTH = 32;
     
     genvar x, y;
     
     reg [BIT_WIDTH-1:0] bufToC1_1, bufToC1_2, bufToC1_3, bufToC1_4, bufToC1_5;
     
     //Control signal for buffers
-    reg S2_en, C3_en;
-    control ctrl(
+    reg S2_en, C3_en, S4_en, C5_en, S2_start, C3_start, S4_start, C5_start;
+    
+    
+    control_s2 crls2(
         .clk(clk),
-        .S2_en(S2_en),
+        .S2_start(S2_start),
+        .S2_en(S2_en)
+    );
+    
+    control_c3 ctrc3(
+        .clk(clk),
+        .S2_start(S2_start),
+        .C3_start(C3_start),
         .C3_en(C3_en)
     );
+    
+    control_s4 ctrs4(
+        .clk(clk),
+        .C3_start(C3_start),
+        .S4_start(S4_start),
+        .S4_en(S4_en)
+    );
+    
+    control_c5 ctrc5(
+        .clk(clk),
+        .S4_start(S4_start),
+        .C5_start(C5_start),
+        .C5_en(C5_en)
+    );
+    
     
     //Read params for C1 kernel
     reg [0:C1_PARAMS_num*BIT_WIDTH*C1_FILTER_num-1] kernelC1;
@@ -76,7 +110,7 @@ module Lenet5 #(parameter BIT_WIDTH = 8) (
     endgenerate
     
     reg [C1_OUT_WIDTH-1:0] buf_C1toS2 [C1_FILTER_num];
-    reg [C1_OUT_WIDTH-1:0] resultS2 [C1_FILTER_num];
+    reg [C1_OUT_WIDTH-1:0] resultS2 [S2_FILTER_num];
     
     //C1 ---> buffer_C1S2
     generate
@@ -95,12 +129,12 @@ module Lenet5 #(parameter BIT_WIDTH = 8) (
     generate
         for(x=0 ; x<S2_FILTER_num ; x=x+1)
         begin
-            maxpoll22 #(.COL(MAXPOLL_SIZE), .BIT_WIDTH(S2_OUT_WIDTH)) s2(
+            maxpoll22 #(.COL(MAXPOLL_SIZE), .BIT_WIDTH(S2_OUT_WIDTH)) S2(
                 .clk(clk),
                 .en(S2_en),
                 .in1(buf_C1toS2[x]),
                 .in2(resultC1[x]),
-                .resultS2(resultS2[x])
+                .result(resultS2[x])
             );
         end 
     endgenerate
@@ -140,7 +174,7 @@ module Lenet5 #(parameter BIT_WIDTH = 8) (
     reg [C3_OUT_WIDTH-1:0] convC3_result[0:C3_FILTER_num-1], convC3_plus_bias[0:C3_FILTER_num-1], convC3_relu[0:C3_FILTER_num-1], resultC3[0:C3_FILTER_num-1];
     generate
         for(x=0 ; x<C3_FILTER_num ; x=x+1) begin
-            conv556 #(.COL(KERNEL_SIZE), .BIT_WIDTH(S2_OUT_WIDTH), .OUT_WIDTH(C3_OUT_WIDTH)) C3(
+            conv556 #(.COL(KERNEL_SIZE), .BIT_WIDTH(BIT_WIDTH), .IN_WIDTH(S2_OUT_WIDTH), .OUT_WIDTH(C3_OUT_WIDTH)) C3(
                 .clk(clk),
                 .en(C3_en),
                 .in1(buf_S2toC3_1),
@@ -164,5 +198,107 @@ module Lenet5 #(parameter BIT_WIDTH = 8) (
             assign resultC3[x] = convC3_relu[x];
         end
     endgenerate
+    
+    //C3 ---> buffer_C3S4
+    reg [C3_OUT_WIDTH-1:0] buf_C3toS4 [S4_FILTER_num];
+    reg [C3_OUT_WIDTH-1:0] resultS4 [S4_FILTER_num];
+    
+    generate
+        for(x=0 ; x<S4_FILTER_num ; x=x+1)
+        begin
+            rowbuf #(.COL(S4_SIZE), .BIT_WIDTH(S4_OUT_WIDTH)) c3s4(
+                .clk(clk),
+                .en(S4_en),
+                .in(resultC3[x]),
+                .out(buf_C3toS4[x])   
+            );
+        end 
+    endgenerate
+    
+    //S4
+    generate
+        for(x=0 ; x<S4_FILTER_num ; x=x+1)
+        begin
+            maxpoll22 #(.COL(MAXPOLL_SIZE), .BIT_WIDTH(S4_OUT_WIDTH)) S2(
+                .clk(clk),
+                .en(S4_en),
+                .in1(buf_C3toS4[x]),
+                .in2(resultC3[x]),
+                .result(resultS4[x])
+            );
+        end 
+    endgenerate
+    
+    //S4 --> buffer S4C5
+    reg [S4_OUT_WIDTH-1:0] buf_S4toC5_1 [S4_FILTER_num];
+    reg [S4_OUT_WIDTH-1:0] buf_S4toC5_2 [S4_FILTER_num];
+    reg [S4_OUT_WIDTH-1:0] buf_S4toC5_3 [S4_FILTER_num];
+    reg [S4_OUT_WIDTH-1:0] buf_S4toC5_4 [S4_FILTER_num];
+    reg [S4_OUT_WIDTH-1:0] buf_S4toC5_5 [S4_FILTER_num];
+    
+    generate
+        for(x=0 ; x<S4_FILTER_num ; x=x+1)
+        begin
+            row4buf #(.COL(C5_SIZE), .BIT_WIDTH(S4_OUT_WIDTH)) s4c5(
+                .clk(clk),
+                .en(C5_en),
+                .in(resultS4[x]),
+                .out1(buf_S4toC5_5[x]),
+                .out2(buf_S4toC5_4[x]), 
+                .out3(buf_S4toC5_3[x]), 
+                .out4(buf_S4toC5_2[x]), 
+                .out5(buf_S4toC5_1[x])
+            );
+        end 
+    endgenerate
+    
+    //Read params for C5 kernel
+    reg [0:C5_PARAMS_num*BIT_WIDTH*C5_FILTER_num-1] kernelC5;
+    
+    params #(.BIT_WIDTH(BIT_WIDTH), .SIZE(C5_PARAMS_num*C5_FILTER_num), .FILE(C5_PARAMS_file)) param_C5(
+        .clk(clk),
+        .read(1'b1),
+        .read_out(kernelC5)
+    );
+    
+    //C5
+    reg [C5_OUT_WIDTH-1:0] convC5_result[0:C5_FILTER_num-1], convC5_plus_bias[0:C5_FILTER_num-1], convC5_relu[0:C5_FILTER_num-1], resultC5[0:C5_FILTER_num-1];
+    generate
+        for(x=0 ; x < C5_FILTER_num ; x=x+1) begin
+            conv5516 #(.COL(KERNEL_SIZE), .BIT_WIDTH(BIT_WIDTH), .IN_WIDTH(S4_OUT_WIDTH), .OUT_WIDTH(C5_OUT_WIDTH)) C5(
+                .clk(clk),
+                .en(C5_en),
+                .in1(buf_S4toC5_1),
+                .in2(buf_S4toC5_2),
+                .in3(buf_S4toC5_3),
+                .in4(buf_S4toC5_4),
+                .in5(buf_S4toC5_5),
+                
+                .kernel_0(kernelC5[((16*x+0)*(PARAMS_NUM-1)+x)*BIT_WIDTH:((16*x+1)*(PARAMS_NUM-1)+x)*BIT_WIDTH-1]),
+                .kernel_1(kernelC5[((16*x+1)*(PARAMS_NUM-1)+x)*BIT_WIDTH:((16*x+2)*(PARAMS_NUM-1)+x)*BIT_WIDTH-1]),
+                .kernel_2(kernelC5[((16*x+2)*(PARAMS_NUM-1)+x)*BIT_WIDTH:((16*x+3)*(PARAMS_NUM-1)+x)*BIT_WIDTH-1]),
+                .kernel_3(kernelC5[((16*x+3)*(PARAMS_NUM-1)+x)*BIT_WIDTH:((16*x+4)*(PARAMS_NUM-1)+x)*BIT_WIDTH-1]),
+                .kernel_4(kernelC5[((16*x+4)*(PARAMS_NUM-1)+x)*BIT_WIDTH:((16*x+5)*(PARAMS_NUM-1)+x)*BIT_WIDTH-1]),
+                .kernel_5(kernelC5[((16*x+5)*(PARAMS_NUM-1)+x)*BIT_WIDTH:((16*x+6)*(PARAMS_NUM-1)+x)*BIT_WIDTH-1]),
+                .kernel_6(kernelC5[((16*x+6)*(PARAMS_NUM-1)+x)*BIT_WIDTH:((16*x+7)*(PARAMS_NUM-1)+x)*BIT_WIDTH-1]),
+                .kernel_7(kernelC5[((16*x+7)*(PARAMS_NUM-1)+x)*BIT_WIDTH:((16*x+8)*(PARAMS_NUM-1)+x)*BIT_WIDTH-1]),
+                .kernel_8(kernelC5[((16*x+8)*(PARAMS_NUM-1)+x)*BIT_WIDTH:((16*x+9)*(PARAMS_NUM-1)+x)*BIT_WIDTH-1]),
+                .kernel_9(kernelC5[((16*x+9)*(PARAMS_NUM-1)+x)*BIT_WIDTH:((16*x+10)*(PARAMS_NUM-1)+x)*BIT_WIDTH-1]),
+                .kernel_10(kernelC5[((16*x+10)*(PARAMS_NUM-1)+x)*BIT_WIDTH:((16*x+11)*(PARAMS_NUM-1)+x)*BIT_WIDTH-1]),
+                .kernel_11(kernelC5[((16*x+11)*(PARAMS_NUM-1)+x)*BIT_WIDTH:((16*x+12)*(PARAMS_NUM-1)+x)*BIT_WIDTH-1]),
+                .kernel_12(kernelC5[((16*x+12)*(PARAMS_NUM-1)+x)*BIT_WIDTH:((16*x+13)*(PARAMS_NUM-1)+x)*BIT_WIDTH-1]),
+                .kernel_13(kernelC5[((16*x+13)*(PARAMS_NUM-1)+x)*BIT_WIDTH:((16*x+14)*(PARAMS_NUM-1)+x)*BIT_WIDTH-1]),
+                .kernel_14(kernelC5[((16*x+14)*(PARAMS_NUM-1)+x)*BIT_WIDTH:((16*x+15)*(PARAMS_NUM-1)+x)*BIT_WIDTH-1]),
+                .kernel_15(kernelC5[((16*x+15)*(PARAMS_NUM-1)+x)*BIT_WIDTH:((16*x+16)*(PARAMS_NUM-1)+x)*BIT_WIDTH-1]),
+                
+                .conv_result(convC5_result[x])
+            );
+        
+            assign convC5_plus_bias[x] = convC5_result[x] + kernelC5[((16*x+16)*(PARAMS_NUM-1)+x)*BIT_WIDTH:((16*x+16)*(PARAMS_NUM-1)+x)*BIT_WIDTH+7];
+            assign convC5_relu[x] = (convC5_plus_bias[x] < 0) ? 0 : convC5_plus_bias[x];
+            assign resultC5[x] = convC5_relu[x];
+        end
+    endgenerate
+    
       
 endmodule

@@ -3,7 +3,7 @@
 module maxpoll22 #(parameter COL = 5, BIT_WIDTH = 8) (
     input clk, en,
     input [BIT_WIDTH-1:0] in1, in2,
-    output[BIT_WIDTH-1:0] resultS2
+    output[BIT_WIDTH-1:0] result
 );
     
     reg [BIT_WIDTH-1:0] m22[COL][COL];
@@ -24,6 +24,6 @@ module maxpoll22 #(parameter COL = 5, BIT_WIDTH = 8) (
     
     assign max1 = (m22[0][0] >= m22[0][1]) ? m22[0][0] : m22[0][1];
     assign max2 = (m22[1][0] >= m22[1][1]) ? m22[1][0] : m22[1][1];
-    assign resultS2 = (max1 >= max2) ? max1 : max2; 
+    assign result = (max1 >= max2) ? max1 : max2; 
 endmodule
 

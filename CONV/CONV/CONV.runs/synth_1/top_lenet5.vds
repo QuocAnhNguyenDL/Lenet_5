@@ -1,0 +1,76 @@
+#-----------------------------------------------------------
+# Vivado v2024.1 (64-bit)
+# SW Build 5076996 on Wed May 22 18:37:14 MDT 2024
+# IP Build 5075265 on Wed May 22 21:45:21 MDT 2024
+# SharedData Build 5076995 on Wed May 22 18:29:18 MDT 2024
+# Start of session at: Sat Oct 26 16:05:59 2024
+# Process ID: 5812
+# Current directory: D:/DOAN/CONV/CONV/CONV.runs/synth_1
+# Command line: vivado.exe -log top_lenet5.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top_lenet5.tcl
+# Log file: D:/DOAN/CONV/CONV/CONV.runs/synth_1/top_lenet5.vds
+# Journal file: D:/DOAN/CONV/CONV/CONV.runs/synth_1\vivado.jou
+# Running On        :DESKTOP-TRNDI3S
+# Platform          :Windows Server 2016 or Windows 10
+# Operating System  :22631
+# Processor Detail  :Intel(R) Core(TM) i5-10300H CPU @ 2.50GHz
+# CPU Frequency     :2496 MHz
+# CPU Physical cores:4
+# CPU Logical cores :8
+# Host memory       :17008 MB
+# Swap memory       :7516 MB
+# Total Virtual     :24525 MB
+# Available Virtual :13728 MB
+#-----------------------------------------------------------
+source top_lenet5.tcl -notrace
+create_project: Time (s): cpu = 00:00:05 ; elapsed = 00:00:09 . Memory (MB): peak = 514.473 ; gain = 202.352
+Command: read_checkpoint -auto_incremental -incremental D:/DOAN/CONV/CONV/CONV.srcs/utils_1/imports/synth_1/Conv.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from D:/DOAN/CONV/CONV/CONV.srcs/utils_1/imports/synth_1/Conv.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+Command: synth_design -top top_lenet5 -part xc7k70tfbv676-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7k70t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7k70t'
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 18176
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 973.895 ; gain = 447.195
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-11065] parameter 'C1_PARAMS_file' becomes localparam in 'Lenet5' with formal parameter declaration list [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:8]
+WARNING: [Synth 8-11065] parameter 'C3_PARAMS_file' becomes localparam in 'Lenet5' with formal parameter declaration list [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:9]
+WARNING: [Synth 8-11065] parameter 'IMG_SIZE' becomes localparam in 'Lenet5' with formal parameter declaration list [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:11]
+WARNING: [Synth 8-11065] parameter 'KERNEL_SIZE' becomes localparam in 'Lenet5' with formal parameter declaration list [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:12]
+WARNING: [Synth 8-11065] parameter 'MAXPOLL_SIZE' becomes localparam in 'Lenet5' with formal parameter declaration list [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:13]
+WARNING: [Synth 8-11065] parameter 'S2_SIZE' becomes localparam in 'Lenet5' with formal parameter declaration list [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:14]
+WARNING: [Synth 8-11065] parameter 'C3_SIZE' becomes localparam in 'Lenet5' with formal parameter declaration list [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:15]
+WARNING: [Synth 8-11065] parameter 'S4_SIZE' becomes localparam in 'Lenet5' with formal parameter declaration list [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:16]
+WARNING: [Synth 8-11065] parameter 'C5_SIZE' becomes localparam in 'Lenet5' with formal parameter declaration list [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:17]
+WARNING: [Synth 8-11065] parameter 'C1_FILTER_num' becomes localparam in 'Lenet5' with formal parameter declaration list [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:19]
+WARNING: [Synth 8-11065] parameter 'S2_FILTER_num' becomes localparam in 'Lenet5' with formal parameter declaration list [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:20]
+WARNING: [Synth 8-11065] parameter 'C3_FILTER_num' becomes localparam in 'Lenet5' with formal parameter declaration list [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:21]
+WARNING: [Synth 8-11065] parameter 'S4_FILTER_num' becomes localparam in 'Lenet5' with formal parameter declaration list [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:22]
+WARNING: [Synth 8-11065] parameter 'C5_FILTER_num' becomes localparam in 'Lenet5' with formal parameter declaration list [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:23]
+WARNING: [Synth 8-11065] parameter 'C1_PARAMS_num' becomes localparam in 'Lenet5' with formal parameter declaration list [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:25]
+WARNING: [Synth 8-11065] parameter 'C3_PARAMS_num' becomes localparam in 'Lenet5' with formal parameter declaration list [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:26]
+WARNING: [Synth 8-11065] parameter 'C1_OUT_WIDTH' becomes localparam in 'Lenet5' with formal parameter declaration list [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:31]
+WARNING: [Synth 8-11065] parameter 'S2_OUT_WIDTH' becomes localparam in 'Lenet5' with formal parameter declaration list [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:32]
+WARNING: [Synth 8-11065] parameter 'C3_OUT_WIDTH' becomes localparam in 'Lenet5' with formal parameter declaration list [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:33]
+WARNING: [Synth 8-11065] parameter 'S4_OUT_WIDTH' becomes localparam in 'Lenet5' with formal parameter declaration list [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:34]
+INFO: [Synth 8-6157] synthesizing module 'top_lenet5' [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/top_lenet5.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'image_reader' [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/read_img.sv:3]
+	Parameter NUMPIXELS bound to: 1024 - type: integer 
+	Parameter BIT_WIDTH bound to: 8 - type: integer 
+	Parameter FILE bound to: D:/DOAN/CONV/src/image32x32.list - type: string 
+INFO: [Synth 8-3876] $readmem data file 'D:/DOAN/CONV/src/image32x32.list' is read successfully [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/read_img.sv:12]
+ERROR: [Synth 8-434] mixed level sensitive and edge triggered event controls are not supported for synthesis [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/read_img.sv:15]
+ERROR: [Synth 8-6156] failed synthesizing module 'image_reader' [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/read_img.sv:3]
+ERROR: [Synth 8-6156] failed synthesizing module 'top_lenet5' [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/top_lenet5.sv:3]
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:06 ; elapsed = 00:00:08 . Memory (MB): peak = 1084.359 ; gain = 557.660
+---------------------------------------------------------------------------------
+synthesize failed
+INFO: [Common 17-83] Releasing license: Synthesis
+10 Infos, 20 Warnings, 0 Critical Warnings and 4 Errors encountered.
+synth_design failed
+ERROR: [Common 17-69] Command failed: Vivado Synthesis failed
+INFO: [Common 17-206] Exiting Vivado at Sat Oct 26 16:06:22 2024...

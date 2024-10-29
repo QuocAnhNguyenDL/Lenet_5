@@ -1,13 +1,13 @@
 `timescale 1ns / 1ps
 
-module conv55 #(parameter COL = 5, BIT_WIDTH = 8, OUT_WIDTH = 32) (
+module conv55 #(parameter COL = 5, BIT_WIDTH = 8, IN_WIDTH = 8, OUT_WIDTH = 32) (
     input clk, en,
-    input [0:(8*25)-1] kernel,
-    input [BIT_WIDTH-1:0] in1, in2, in3, in4, in5,
+    input [0:(BIT_WIDTH*25)-1] kernel,
+    input [IN_WIDTH-1:0] in1, in2, in3, in4, in5,
     output[OUT_WIDTH-1:0] conv_result
 );
     
-    reg [BIT_WIDTH-1:0] m55[COL][COL];
+    reg [IN_WIDTH-1:0] m55[COL][COL];
     integer i;
     
     always @(posedge clk)

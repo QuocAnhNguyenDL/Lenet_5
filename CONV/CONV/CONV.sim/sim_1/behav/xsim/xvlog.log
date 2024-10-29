@@ -1,0 +1,30 @@
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module Lenet5
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/control_c3.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module control_c3
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/control_c5.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module control_c5
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/control_s2.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module control_s2
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/control_s4.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module control_s4
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/conv55.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module conv55
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/conv5516.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module conv5516
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/conv556.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module conv556
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/maxpoll22.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module maxpoll22
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/param.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module params
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/read_img.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module image_reader
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/row4buf.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module row4buf
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/rowbuf.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module rowbuf
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/top_lenet5.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top_lenet5
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/DOAN/CONV/CONV/CONV.srcs/sim_1/new/tb.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb
