@@ -43,6 +43,6 @@ else:
     # Ghi kết quả vào file output.txt
     with open("D:/DOAN/CONV/src/result_after_filter/afterF6/afterF6.list", 'w') as f:
         for output in outputs:
-            f.write(f"{output}\n")
+            f.write(f"{int(output)}\n")
 
     print("Kết quả đã được ghi vào file afterF6.list")

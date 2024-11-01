@@ -21,6 +21,7 @@ module Lenet5 #(parameter BIT_WIDTH = 8) (
     parameter C5_SIZE = 5;
     parameter F6_SIZE = 120;
     parameter F7_SIZE = 84;
+    parameter OUTPUT_SIZE = 10;
     
     parameter C1_FILTER_num = 6;
     parameter S2_FILTER_num = 6;
@@ -344,6 +345,38 @@ module Lenet5 #(parameter BIT_WIDTH = 8) (
         end
     endgenerate
     
+    //F6 --> F6toF7
+    reg [F7_SIZE*F6_OUT_WIDTH - 1:0] F6toF7;
+    generate
+        for(x = 0; x < F6_SIZE; x = x+1)
+        begin
+            assign F6toF7[(x+1)*F6_OUT_WIDTH-1 : x*F6_OUT_WIDTH] = resultF6[x];
+        end
+    endgenerate
+    
+    //Read params for F7 kernel
+    reg [0 : BIT_WIDTH*F7_PARAMS_num*F7_FILTER_num-1] weightsF7;
+    params #(.BIT_WIDTH(BIT_WIDTH), .SIZE(F7_PARAMS_num*F7_FILTER_num), .FILE(F7_PARAMS_file)) param_F7(
+        .clk(clk),
+        .read(1'b1),
+        .read_out(weightsF7)
+    );
+    
+    //F7
+    reg [F7_OUT_WIDTH-1:0] resultF7[0 : OUTPUT_SIZE-1], fcF7_plus_bias[0 : OUTPUT_SIZE-1], fcF7_result[0 : OUTPUT_SIZE-1] ;
+    generate
+        for(x=0 ; x<OUTPUT_SIZE; x=x+1)
+        begin
+            FC_F7 #(.IN_WIDTH(F6_OUT_WIDTH), .OUT_WIDTH(F7_OUT_WIDTH)) F7(
+                .in(F6toF7),
+                .weights(weightsF7[BIT_WIDTH*(F7_SIZE*x+x):((x+1)*F7_SIZE+x)*BIT_WIDTH-1]),
+                .result(fcF7_result[x])
+            );
+            
+            assign fcF7_plus_bias[x] = fcF7_result[x] + weightsF7[((x+1)*F7_SIZE+x)*BIT_WIDTH : ((x+1)*F7_SIZE+x)*BIT_WIDTH + 7];
+            assign resultF7[x] = fcF7_plus_bias[x];
+        end
+    endgenerate
     
     
       
