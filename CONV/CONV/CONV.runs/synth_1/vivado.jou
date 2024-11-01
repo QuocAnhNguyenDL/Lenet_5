@@ -3,11 +3,11 @@
 # SW Build 5076996 on Wed May 22 18:37:14 MDT 2024
 # IP Build 5075265 on Wed May 22 21:45:21 MDT 2024
 # SharedData Build 5076995 on Wed May 22 18:29:18 MDT 2024
-# Start of session at: Sat Oct 26 16:05:59 2024
-# Process ID: 5812
+# Start of session at: Fri Nov  1 16:31:02 2024
+# Process ID: 9116
 # Current directory: D:/DOAN/CONV/CONV/CONV.runs/synth_1
-# Command line: vivado.exe -log top_lenet5.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top_lenet5.tcl
-# Log file: D:/DOAN/CONV/CONV/CONV.runs/synth_1/top_lenet5.vds
+# Command line: vivado.exe -log Lenet5.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source Lenet5.tcl
+# Log file: D:/DOAN/CONV/CONV/CONV.runs/synth_1/Lenet5.vds
 # Journal file: D:/DOAN/CONV/CONV/CONV.runs/synth_1\vivado.jou
 # Running On        :DESKTOP-TRNDI3S
 # Platform          :Windows Server 2016 or Windows 10
@@ -17,8 +17,8 @@
 # CPU Physical cores:4
 # CPU Logical cores :8
 # Host memory       :17008 MB
-# Swap memory       :7516 MB
-# Total Virtual     :24525 MB
-# Available Virtual :13728 MB
+# Swap memory       :5637 MB
+# Total Virtual     :22646 MB
+# Available Virtual :6136 MB
 #-----------------------------------------------------------
-source top_lenet5.tcl -notrace
+source Lenet5.tcl -notrace

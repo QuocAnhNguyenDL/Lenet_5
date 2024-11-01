@@ -11,7 +11,6 @@ sv xil_defaultlib  \
 "../../../../CONV.srcs/sources_1/new/conv5516.sv" \
 "../../../../CONV.srcs/sources_1/new/conv556.sv" \
 "../../../../CONV.srcs/sources_1/new/maxpoll22.sv" \
-"../../../../CONV.srcs/sources_1/new/param.sv" \
 "../../../../CONV.srcs/sources_1/new/read_img.sv" \
 "../../../../CONV.srcs/sources_1/new/row4buf.sv" \
 "../../../../CONV.srcs/sources_1/new/rowbuf.sv" \
