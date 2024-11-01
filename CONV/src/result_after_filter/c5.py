@@ -23,7 +23,7 @@ def convolve_matrices(list_matrices, filters):
     results = []
     for weights, bias in filters:
         conv_sum = sum(np.sum(list_matrices[i] * weights[i]) for i in range(16))  # Nhân và tổng của từng cặp ma trận
-        conv_result = conv_sum + bias  # Cộng thêm bias
+        conv_result = int(conv_sum + bias)  # Cộng thêm bias và chuyển đổi sang số nguyên
         results.append(conv_result)
     return results
 

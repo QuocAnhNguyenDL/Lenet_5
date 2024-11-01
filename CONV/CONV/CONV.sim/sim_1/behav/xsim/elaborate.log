@@ -5,38 +5,13 @@ Running: D:/App/Vivado/Vivado/2024.1/bin/unwrapped/win64.o/xelab.exe --incr --de
 Using 2 slave threads.
 Starting static elaboration
 Pass Through NonSizing Optimizer
-WARNING: [VRFC 10-3091] actual bit length 208 differs from formal bit length 200 for port 'kernel' [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:102]
+WARNING: [VRFC 10-3091] actual bit length 208 differs from formal bit length 200 for port 'kernel' [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:112]
 WARNING: [VRFC 10-5021] port 'rst' is not connected on this instance [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/top_lenet5.sv:11]
-WARNING: [VRFC 10-3705] select index -8 into 'kernelC1' is out of bounds [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:102]
+WARNING: [VRFC 10-3705] select index -8 into 'kernelC1' is out of bounds [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:112]
+WARNING: [VRFC 10-3705] select index 81312 into 'weightsF6' is out of bounds [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:337]
+WARNING: [VRFC 10-3705] select index 84 into 'fcF6_result' is out of bounds [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:338]
+WARNING: [VRFC 10-3705] select index 84 into 'fcF6_plus_bias' is out of bounds [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:341]
+WARNING: [VRFC 10-3705] select index 84 into 'fcF6_relu' is out of bounds [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:342]
+WARNING: [VRFC 10-3705] select index 84 into 'resultF6' is out of bounds [D:/DOAN/CONV/CONV/CONV.srcs/sources_1/new/Lenet5.sv:343]
 Completed static elaboration
-Starting simulation data flow analysis
-Completed simulation data flow analysis
-Time Resolution for simulation is 1ps
-Compiling module xil_defaultlib.image_reader(FILE="D:/DOAN/CONV/...
-Compiling module xil_defaultlib.control_s2
-Compiling module xil_defaultlib.control_c3
-Compiling module xil_defaultlib.control_s4
-Compiling module xil_defaultlib.control_c5
-Compiling module xil_defaultlib.params(SIZE=156,FILE="D:/DOAN/CO...
-Compiling module xil_defaultlib.rowbuf(COL=32)
-Compiling module xil_defaultlib.row4buf(COL=32)
-Compiling module xil_defaultlib.conv55(OUT_WIDTH=16)
-Compiling module xil_defaultlib.rowbuf(COL=28,BIT_WIDTH=16)
-Compiling module xil_defaultlib.maxpoll22(COL=2,BIT_WIDTH=16)
-Compiling module xil_defaultlib.rowbuf(COL=14,BIT_WIDTH=16)
-Compiling module xil_defaultlib.row4buf(COL=14,BIT_WIDTH=16)
-Compiling module xil_defaultlib.params(SIZE=150,FILE="D:/DOAN/CO...
-Compiling module xil_defaultlib.conv55(IN_WIDTH=16,OUT_WIDTH=24)
-Compiling module xil_defaultlib.conv556(IN_WIDTH=16,OUT_WIDTH=24...
-Compiling module xil_defaultlib.rowbuf(COL=10,BIT_WIDTH=24)
-Compiling module xil_defaultlib.maxpoll22(COL=2,BIT_WIDTH=24)
-Compiling module xil_defaultlib.rowbuf(BIT_WIDTH=24)
-Compiling module xil_defaultlib.row4buf(BIT_WIDTH=24)
-Compiling module xil_defaultlib.params(SIZE=48120,FILE="D:/DOAN/...
-Compiling module xil_defaultlib.conv55(IN_WIDTH=24)
-Compiling module xil_defaultlib.conv5516(IN_WIDTH=24)
-Compiling module xil_defaultlib.Lenet5_default
-Compiling module xil_defaultlib.top_lenet5
-Compiling module xil_defaultlib.tb
-Compiling module xil_defaultlib.glbl
-Built simulation snapshot tb_behav
+INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel

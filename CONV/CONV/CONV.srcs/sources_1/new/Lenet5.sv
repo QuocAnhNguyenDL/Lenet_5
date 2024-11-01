@@ -8,6 +8,8 @@ module Lenet5 #(parameter BIT_WIDTH = 8) (
     parameter C1_PARAMS_file = "D:/DOAN/CONV/src/kernel_c1.list";
     parameter C3_PARAMS_file = "D:/DOAN/CONV/src/kernel_c3.list";
     parameter C5_PARAMS_file = "D:/DOAN/CONV/src/kernel_c5.list";
+    parameter F6_PARAMS_file = "D:/DOAN/CONV/src/weights_f6.list";
+    parameter F7_PARAMS_file = "D:/DOAN/CONV/src/weights_f7.list";
     
     
     parameter IMG_SIZE = 32;
@@ -17,16 +19,22 @@ module Lenet5 #(parameter BIT_WIDTH = 8) (
     parameter C3_SIZE = 14;
     parameter S4_SIZE = 10;
     parameter C5_SIZE = 5;
+    parameter F6_SIZE = 120;
+    parameter F7_SIZE = 84;
     
     parameter C1_FILTER_num = 6;
     parameter S2_FILTER_num = 6;
     parameter C3_FILTER_num = 16;
     parameter S4_FILTER_num = 16;
     parameter C5_FILTER_num = 120;
+    parameter F6_FILTER_num = 84;
+    parameter F7_FILTER_num = 10;
     
     parameter C1_PARAMS_num = 26;
     parameter C3_PARAMS_num = 25;
     parameter C5_PARAMS_num = 401;
+    parameter F6_PARAMS_num = 121;
+    parameter F7_PARAMS_num = 85;
     parameter PARAMS_NUM = 26;
     //parameter S2_SIZE = 32;
     //parameter C3_SIZE = 32;
@@ -37,6 +45,8 @@ module Lenet5 #(parameter BIT_WIDTH = 8) (
     parameter C3_OUT_WIDTH = 24;
     parameter S4_OUT_WIDTH = 24;
     parameter C5_OUT_WIDTH = 32;
+    parameter F6_OUT_WIDTH = 48;
+    parameter F7_OUT_WIDTH = 64;
     
     genvar x, y;
     
@@ -299,6 +309,42 @@ module Lenet5 #(parameter BIT_WIDTH = 8) (
             assign resultC5[x] = convC5_relu[x];
         end
     endgenerate
+    
+    //C5 --> flatten input vector for F6
+    reg [F6_SIZE*C5_OUT_WIDTH - 1:0] C5toF6;
+    generate
+        for(x = 0; x < F6_SIZE; x = x+1)
+        begin
+            assign C5toF6[(x+1)*32-1 : x*32] = resultC5[x];
+        end
+    endgenerate
+    
+    //Read params for F6 kernel
+    reg [0 : BIT_WIDTH*F6_PARAMS_num*F6_FILTER_num-1] weightsF6;
+    params #(.BIT_WIDTH(BIT_WIDTH), .SIZE(F6_PARAMS_num*F6_FILTER_num), .FILE(F6_PARAMS_file)) param_F6(
+        .clk(clk),
+        .read(1'b1),
+        .read_out(weightsF6)
+    );
+    
+    //F6
+    reg [F6_OUT_WIDTH-1:0] resultF6[0 : F7_SIZE-1], fcF6_plus_bias[0 : F7_SIZE-1], fcF6_relu[0 : F7_SIZE-1], fcF6_result[0 : F7_SIZE-1] ;
+    generate
+        for(x=0 ; x<F6_SIZE-1; x=x+1)
+        begin
+            FC_F6 #(.IN_WIDTH(C5_OUT_WIDTH), .OUT_WIDTH(F6_OUT_WIDTH)) F6(
+                .in(C5toF6),
+                .weights(weightsF6[BIT_WIDTH*(F6_SIZE*x+x):((x+1)*F6_SIZE+x)*BIT_WIDTH-1]),
+                .result(fcF6_result[x])
+            );
+            
+            assign fcF6_plus_bias[x] = fcF6_result[x] + weightsF6[((x+1)*F6_SIZE+x)*BIT_WIDTH : ((x+1)*F6_SIZE+x)*BIT_WIDTH + 7];
+            assign fcF6_relu[x] = (fcF6_plus_bias[x] < 0) ? 0 : fcF6_plus_bias[x];
+            assign resultF6[x] = fcF6_relu[x];
+        end
+    endgenerate
+    
+    
     
       
 endmodule
